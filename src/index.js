@@ -1,12 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+class Fizzbuzz extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 0,
+      output: 0
+     };
+    this.increment = this.increment.bind(this);
+  }
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  increment() {
+    this.setState(state => ({
+      counter: state.counter + 1,
+      output: (state.counter + 1) % 3 == 0 && (state.counter + 1) % 5 == 0 ? 'fizzbuzz' :
+              (state.counter + 1) % 3 == 0 ? 'fizz' :
+              (state.counter + 1) % 5 == 0 ? 'buzz' :
+               state.counter + 1
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Counter: { this.state.output } </p>
+        <button onClick={this.increment}>Press Me</button>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<Fizzbuzz/>, document.querySelector('#root'));
