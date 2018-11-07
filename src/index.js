@@ -1,23 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+function fizzbuzzNum(num) {
+  if (num % 3 == 0 && num % 5 == 0) {return 'fizzbuzz';}
+  else if (num % 3 == 0) {return 'fizz';}
+  else if (num % 5 == 0) {return 'buzz';}
+  else {return num;}
+}
+
 class Fizzbuzz extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       counter: 0,
       output: 0
-     };
+    };
+    //this.fizzbuzzNum = this.fizzbuzzNum.bind(this);
     this.increment = this.increment.bind(this);
   }
 
   increment() {
+    let newCounter = this.state.counter + 1;
+    let newOutput = fizzbuzzNum(newCounter);
     this.setState(state => ({
-      counter: state.counter + 1,
-      output: (state.counter + 1) % 3 == 0 && (state.counter + 1) % 5 == 0 ? 'fizzbuzz' :
-              (state.counter + 1) % 3 == 0 ? 'fizz' :
-              (state.counter + 1) % 5 == 0 ? 'buzz' :
-               state.counter + 1
+      counter: newCounter,
+      output: newOutput
     }));
   }
 
@@ -31,4 +38,21 @@ class Fizzbuzz extends React.Component {
   }
 }
 
-ReactDOM.render(<Fizzbuzz/>, document.querySelector('#root'));
+function Hello() {
+  return <span>Hello</span>;
+}
+
+function World() {
+  return <span> World!</span>;
+}
+
+const HelloWorld = () => {
+  return (
+    <div>
+      <Hello/><World/>
+    </div>
+  )
+}
+
+
+ReactDOM.render(<HelloWorld/>, document.querySelector('#root'));
