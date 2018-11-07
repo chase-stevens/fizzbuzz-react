@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+let myArray = ['blue', 'indigo', 'purple', 'cyan', 'mauve'];
+
 function fizzbuzzNum(num) {
   if (num % 3 == 0 && num % 5 == 0) {return 'fizzbuzz';}
   else if (num % 3 == 0) {return 'fizz';}
@@ -17,6 +19,7 @@ class Fizzbuzz extends React.Component {
     };
     //this.fizzbuzzNum = this.fizzbuzzNum.bind(this);
     this.increment = this.increment.bind(this);
+    this.decrement = this.decrement.bind(this);
   }
 
   increment() {
@@ -28,11 +31,21 @@ class Fizzbuzz extends React.Component {
     }));
   }
 
+  decrement() {
+    let newCounter = this.state.counter - 1;
+    let newOutput = fizzbuzzNum(newCounter);
+    this.setState(state => ({
+      counter: newCounter,
+      output: newOutput
+    }));
+  }
+
   render() {
     return (
       <div>
         <p>Counter: { this.state.output } </p>
-        <button onClick={this.increment}>Press Me</button>
+        <button onClick={this.increment}>+</button>
+        <button onClick={this.decrement}>-</button>
       </div>
     )
   }
@@ -54,5 +67,23 @@ const HelloWorld = () => {
   )
 }
 
+function MyArrayComponent(props) {
+  return (
+    <ul>
+      {props.items.map(el => <li>{el}</li>)}
+    </ul>
+  )
+}
 
-ReactDOM.render(<HelloWorld/>, document.querySelector('#root'));
+const App = () => {
+  return (
+    <div>
+      <HelloWorld/>
+      <Fizzbuzz/>
+      <MyArrayComponent items={myArray}/>
+    </div>
+  )
+}
+
+
+ReactDOM.render(<App/>, document.querySelector('#root'));
